@@ -1,10 +1,18 @@
 #include <iostream>
 using namespace std;
+struct subvector 
+{
+    int *mas;
+    unsigned int top; 
+    unsigned int capacity;
+};
+bool init (subvector *qv)
+{
+    (*qv).mas = NULL;
+    (*qv).top = 0;
+    (*qv).capacity = 0;
+}
 int main()
 {
-    struct subvector {
-            int *mas;
-            unsigned int top; 
-            unsigned int capacity;
-        };
+    retutn 0;
 }
