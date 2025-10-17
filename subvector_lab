@@ -1,0 +1,10 @@
+#include <iostream>
+using namespace std;
+int main()
+{
+    struct subvector {
+            int *mas;
+            unsigned int top; 
+            unsigned int capacity;
+        };
+}
