@@ -1,0 +1,28 @@
+#include <iostream>
+using namespace std;
+struct subvector 
+{
+    int *mas;
+    unsigned int top; 
+    unsigned int capacity;
+};
+bool init (subvector *qv)
+{
+    (*qv).mas = nullptr;
+    (*qv).top = 0;
+    (*qv).capacity = 0;
+    return true;
+}
+bool push_back(subvector *qv, int d)
+{
+    
+    (*qv).mas[(*qv).top] = d;
+    (*qv).top++;
+    return true;
+}
+void destructor (subvector *qv)
+{
+    (*qv).top = 0;
+    
+
+}
