@@ -8,14 +8,38 @@ struct subvector
 };
 bool init (subvector *qv)
 {
-    (*qv).mas = NULL;
+    (*qv).mas = nullptr;
     (*qv).top = 0;
     (*qv).capacity = 0;
     return true;
 }
 bool push_back(subvector *qv, int d)
 {
-
+    if ((*qv).top == (*qv).capacity) 
+    {
+        unsigned int new_capacity = 0;
+        if ((*qv).capacity == 0) 
+        {
+            new_capacity = 1;
+        }
+        else if ((*qv).capacity > 0)
+        {
+            new_capacity = capacity;
+        }
+        // Выделяем новую память
+        int *new_mas = (int*)std::realloc((*qv).mas, new_capacity * sizeof(int));
+        if (new_mas == nullptr)
+        {
+            return false; // Не удалось выделить память
+        }
+        qv->mas = new_mas; //Присваиваем
+        qv->capacity = new_capacity;
+    }
+    
+    // Добавляем элемент
+    qv->mas[qv->top] = d;
+    qv->top++;
+    return true;
 }
 int pop_back(subvector *qv)
 {
