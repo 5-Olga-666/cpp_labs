@@ -160,24 +160,24 @@ void benchmarkMatrixMultiplication() {
     A.fillRandom(0, 10);
     B.fillRandom(0, 10);
     
-    std::cout << "Тест на умножение матриц (size: " << N << "x" << N << ")\n";
+    std::cout << "Тест на умножение матриц (размер: " << N << "x" << N << ")\n";
     
     double time_direct = measureTime([&]() {
         Matrix<double> C = A * B;
     });
-    std::cout << "Прямое умножение (row*col): " << time_direct << " ms\n";
+    std::cout << "Прямое умножение (строки*столбцы): " << time_direct << " ms\n";
     
     double time_transpose = measureTime([&]() {
         Matrix<double> C = A.multiplyWithTranspose(B);
     });
-    std::cout << "Умножение с транспонированием (row*row): " << time_transpose << " ms\n";
+    std::cout << "Умножение с транспонированием (строки*строки): " << time_transpose << " ms\n";
     
     double time_parallel = measureTime([&]() {
         Matrix<double> C = A.parallelMultiply(B);
     });
     std::cout << "Параллельное умножение: " << time_parallel << " ms\n";
     
-    std::cout << "\nSpeedup (direct/parallel): " << (time_direct / time_parallel) << "x\n";
+    std::cout << "\nУскорение (прямой/параллельный): " << (time_direct / time_parallel) << "x\n";
 }
 
 class PingPongGame {
