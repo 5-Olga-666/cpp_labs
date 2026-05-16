@@ -227,7 +227,7 @@ public:
                 clearScreen();
                 position = i;
                 drawProgress(position, true);
-                std::cout << "T1 --------|-------- T2 (PING sending...)" << std::endl;
+                std::cout << "T1 --------|-------- T2 (ПИНГ посылается...)" << std::endl;
                 std::this_thread::sleep_for(std::chrono::milliseconds(50));
             }
             
@@ -248,7 +248,7 @@ public:
             for (int i = MAX_POSITION; i >= 0; --i) {
                 clearScreen();
                 drawProgress(i, false);
-                std::cout << "T1 --------|-------- T2 (PONG returning...)" << std::endl;
+                std::cout << "T1 --------|-------- T2 (ПОНГ возвращается...)" << std::endl;
                 std::this_thread::sleep_for(std::chrono::milliseconds(50));
             }
             
@@ -259,7 +259,7 @@ public:
     }
     
     void run(int rounds = 3) {
-        std::cout << "Starting Ping-Pong game!\n";
+        std::cout << "Начинаем игру в пинг-понг!\n";
         std::this_thread::sleep_for(std::chrono::seconds(1));
         
         for (int round = 0; round < rounds; ++round) {
@@ -273,7 +273,7 @@ public:
             if (round < rounds - 1) {
                 std::this_thread::sleep_for(std::chrono::seconds(1));
                 clearScreen();
-                std::cout << "\nRound " << (round + 1) << " completed! Next round...\n";
+                std::cout << "\nRound " << (round + 1) << " Готово! Следующий раунд...\n";
                 std::this_thread::sleep_for(std::chrono::seconds(1));
             }
         }
