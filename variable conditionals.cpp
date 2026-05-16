@@ -164,7 +164,6 @@ void benchmarkMatrixMultiplication() {
     B.fillRandom(0, 10);
     
     std::cout << "Тест на умножение матриц (size: " << N << "x" << N << ")\n";
-    std::cout << "================================================\n";
     
     double time_direct = measureTime([&]() {
         Matrix<double> C = A * B;
