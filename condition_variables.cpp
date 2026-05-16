@@ -209,7 +209,7 @@ private:
         std::cout << " T2";
         
         if (!is_ping_moving) {
-            std::cout << " (T2 уведомляет T1)";
+            std::cout << " (T2 notified T1)";
         }
         std::cout << std::endl;
     }
