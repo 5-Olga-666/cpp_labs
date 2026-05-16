@@ -209,7 +209,7 @@ private:
         std::cout << " T2";
         
         if (!is_ping_moving) {
-            std::cout << " (T2 notified T1)";
+            std::cout << " (T2 уведомляет T1)";
         }
         std::cout << std::endl;
     }
@@ -231,7 +231,7 @@ public:
                 std::this_thread::sleep_for(std::chrono::milliseconds(50));
             }
             
-            std::cout << "T1 sent 'ping' to T2" << std::endl;
+            std::cout << "T1 посылает 'пинг' T2" << std::endl;
             is_ping_turn = false;
             cv.notify_one();
         }
@@ -252,7 +252,7 @@ public:
                 std::this_thread::sleep_for(std::chrono::milliseconds(50));
             }
             
-            std::cout << "T2 sent 'pong' to T1" << std::endl;
+            std::cout << "T2 посылает 'понг' T1" << std::endl;
             is_ping_turn = true;
             cv.notify_one();
         }
