@@ -37,9 +37,6 @@ public:
         return data[i][j];
     }
     
-    size_t getRows() const { return rows; }
-    size_t getCols() const { return cols; }
-    
     Matrix<T> operator~() const {
         Matrix<T> result(cols, rows);
         for (size_t i = 0; i < rows; ++i) {
