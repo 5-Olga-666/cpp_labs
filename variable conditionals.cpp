@@ -52,7 +52,7 @@ public:
     
     Matrix<T> operator*(const Matrix<T>& other) const {
         if (cols != other.rows) {
-            throw std::invalid_argument("Matrix dimensions mismatch for multiplication");
+            throw std::invalid_argument("Несоответствие размеров матрицы для умножения");
         }
         
         Matrix<T> result(rows, other.cols, T());
@@ -71,7 +71,7 @@ public:
     
     Matrix<T> multiplyWithTranspose(const Matrix<T>& other) const {
         if (cols != other.rows) {
-            throw std::invalid_argument("Matrix dimensions mismatch for multiplication");
+            throw std::invalid_argument("Несоответствие размеров матрицы для умножения");
         }
         
         Matrix<T> transposed = ~other;
@@ -112,7 +112,7 @@ public:
     
     Matrix<T> parallelMultiply(const Matrix<T>& other, size_t num_threads = std::thread::hardware_concurrency()) const {
         if (cols != other.rows) {
-            throw std::invalid_argument("Matrix dimensions mismatch for multiplication");
+            throw std::invalid_argument("Несоответствие размеров матрицы для умножения");
         }
         
         Matrix<T> result(rows, other.cols, T());
@@ -163,23 +163,23 @@ void benchmarkMatrixMultiplication() {
     A.fillRandom(0, 10);
     B.fillRandom(0, 10);
     
-    std::cout << "Matrix multiplication benchmark (size: " << N << "x" << N << ")\n";
+    std::cout << "Тест на умножение матриц (size: " << N << "x" << N << ")\n";
     std::cout << "================================================\n";
     
     double time_direct = measureTime([&]() {
         Matrix<double> C = A * B;
     });
-    std::cout << "Direct multiplication (row*col): " << time_direct << " ms\n";
+    std::cout << "Прямое умножение (row*col): " << time_direct << " ms\n";
     
     double time_transpose = measureTime([&]() {
         Matrix<double> C = A.multiplyWithTranspose(B);
     });
-    std::cout << "Multiplication with transpose (row*row): " << time_transpose << " ms\n";
+    std::cout << "Умножение с транспонированием (row*row): " << time_transpose << " ms\n";
     
     double time_parallel = measureTime([&]() {
         Matrix<double> C = A.parallelMultiply(B);
     });
-    std::cout << "Parallel multiplication: " << time_parallel << " ms\n";
+    std::cout << "Параллельное умножение: " << time_parallel << " ms\n";
     
     std::cout << "\nSpeedup (direct/parallel): " << (time_direct / time_parallel) << "x\n";
 }
@@ -194,13 +194,12 @@ private:
     const int MAX_POSITION = 40;
     
     void clearScreen() {
-        std::cout << "\033[2J\033[1;1H"; // ANSI escape codes для очистки экрана
+        std::cout << "\033[2J\033[1;1H";
     }
     
     void drawProgress(int pos, bool is_ping_moving) {
         std::cout << "T1 ";
         
-        // Рисуем движение первого потока
         for (int i = 0; i < MAX_POSITION; ++i) {
             if (is_ping_moving && i == pos) {
                 std::cout << "o";
@@ -224,12 +223,10 @@ public:
         while (game_running && position < MAX_POSITION) {
             std::unique_lock<std::mutex> lock(mtx);
             
-            // Ждем своей очереди
             cv.wait(lock, [this] { return is_ping_turn || !game_running; });
             
             if (!game_running) break;
-            
-            // Анимация движения
+
             for (int i = 0; i <= MAX_POSITION; ++i) {
                 clearScreen();
                 position = i;
@@ -247,13 +244,11 @@ public:
     void pong_thread() {
         while (game_running && position < MAX_POSITION) {
             std::unique_lock<std::mutex> lock(mtx);
-            
-            // Ждем своей очереди
+
             cv.wait(lock, [this] { return !is_ping_turn || !game_running; });
             
             if (!game_running) break;
-            
-            // Анимация движения обратно
+
             for (int i = MAX_POSITION; i >= 0; --i) {
                 clearScreen();
                 drawProgress(i, false);
@@ -289,7 +284,7 @@ public:
         
         game_running = false;
         clearScreen();
-        std::cout << "Game Over! Thanks for playing!\n";
+        std::cout << "Игра окончена!\n";
     }
 };
 
@@ -308,7 +303,7 @@ public:
             std::unique_lock<std::mutex> lock(mtx);
             cv.wait(lock, [this] { return is_ping_turn; });
             
-            std::cout << "Ping " << ++ping_count << std::endl;
+            std::cout << "Пинг " << ++ping_count << std::endl;
             is_ping_turn = false;
             cv.notify_one();
         }
@@ -319,7 +314,7 @@ public:
             std::unique_lock<std::mutex> lock(mtx);
             cv.wait(lock, [this] { return !is_ping_turn; });
             
-            std::cout << "Pong " << ++pong_count << std::endl;
+            std::cout << "Понг " << ++pong_count << std::endl;
             is_ping_turn = true;
             cv.notify_one();
         }
@@ -327,10 +322,10 @@ public:
 };
 
 int main() {
-    std::cout << "=== Task 1 & 2: Matrix Operations Benchmark ===\n\n";
+    std::cout << "=== Задания 1 и 2: сравнительный анализ матричных операций ===\n\n";
     benchmarkMatrixMultiplication();
     
-    std::cout << "\n\n=== Task 3: Parallel Matrix Multiplication ===\n";
+    std::cout << "\n\n=== Задание 3. Параллельное умножение матриц ===\n";
     const size_t N = 500;
     Matrix<double> A(N, N);
     Matrix<double> B(N, N);
@@ -340,12 +335,12 @@ int main() {
     double parallel_time = measureTime([&]() {
         Matrix<double> C = A.parallelMultiply(B);
     });
-    std::cout << "Parallel multiplication time: " << parallel_time << " ms\n";
+    std::cout << "Время параллельного умножения: " << parallel_time << " ms\n";
     
-    std::cout << "\n\n=== Task 4: Ping-Pong Game ===\n";
-    std::cout << "Select mode:\n";
-    std::cout << "1. Simple Ping-Pong (no visualization)\n";
-    std::cout << "2. Animated Ping-Pong with visualization\n";
+    std::cout << "\n\n=== Задание 4: игра в пинг-понг ===\n";
+    std::cout << "Выберите режим:\n";
+    std::cout << "1. Простой пинг-понг (без визуализации)\n";
+    std::cout << "2. Анимированный пинг-понг с визуализацией\n";
     
     int choice;
     std::cin >> choice;
